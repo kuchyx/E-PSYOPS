@@ -41,7 +41,7 @@ public class Pathfinding : MonoBehaviour
 			PathNode currentNode = null;
 			int lowestCost = int.MaxValue;
 			// find tile to explore with lowest cost:
-			foreach(PathNode node in nodesToExplore)
+			foreach(PathNode node in nodesToExplore.Values)
 			{
 				if (node.Cost < lowestCost)
 					currentNode = node; // tile with lower cost than currently selected one : pick it instead
@@ -72,7 +72,10 @@ public class Pathfinding : MonoBehaviour
 				{// check if found cheaper path
 					PathNode neighbor = (PathNode)resolvedNodes[targetCoord];
 					if (neighbor.Cost > newCost && newCost > 0)
+					{
 						nodesToExplore.Add(targetCoord, new PathNode(currentNode, targetCoord, newCost));
+						resolvedNodes.Remove(targetCoord);
+					}
 					continue;
 				}// not evaluated previously: add to be explored
 				nodesToExplore.Add(targetCoord, new PathNode(currentNode, targetCoord, newCost));

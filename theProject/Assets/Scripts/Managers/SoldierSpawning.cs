@@ -23,6 +23,7 @@ public class SoldierSpawning : MonoBehaviour
 
 	private void HandleTick(TickSystem.OnTickEventArgs tickEventArgs)
 	{
+		return;//TEMP
 		if (lastSpawnTick + spawnInterval > tickEventArgs.tickNumber)
 			return;
 
