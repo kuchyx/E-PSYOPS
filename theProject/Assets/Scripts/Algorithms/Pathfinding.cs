@@ -31,19 +31,28 @@ public class Pathfinding : MonoBehaviour
 
 		resolvedNodes = new OrderedDictionary();
 		nodesToExplore = new OrderedDictionary();
+
 		PathNode finalNode = null;
 		// List<PathNode> finalNodes? // keep track of nodes that are at the edge of soldier's vision, so they can become a destination now
         nodesToExplore.Add(startCoords, new PathNode(null, startCoords, 0));
 		
 		while (nodesToExplore.Count > 0)
 		{
-			PathNode currentNode = (PathNode)nodesToExplore[0];
+			PathNode currentNode = null;
+			int lowestCost = int.MaxValue;
+			// find tile to explore with lowest cost:
+			foreach(PathNode node in nodesToExplore)
+			{
+				if (node.Cost < lowestCost)
+					currentNode = node; // tile with lower cost than currently selected one : pick it instead
+			}
+			
 			if(currentNode.Coords == endCoords)
-			{// found path
+			{// found final node, this is the quickest route
 				finalNode = currentNode; // this node is the destination node, do not search for paths from it
 				nodesToExplore.Remove(currentNode.Coords);
 				resolvedNodes.Add(currentNode.Coords, currentNode);
-				continue; // there might be a quicker path, so continue exploring nodes
+				break;
 			}
 
 			foreach (Vector2Int targetCoord in GetNeighbors(currentNode.Coords))
