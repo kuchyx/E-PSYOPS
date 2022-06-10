@@ -31,19 +31,37 @@ public class Pathfinding : MonoBehaviour
 
 		resolvedNodes = new OrderedDictionary();
 		nodesToExplore = new OrderedDictionary();
+
 		PathNode finalNode = null;
 		// List<PathNode> finalNodes? // keep track of nodes that are at the edge of soldier's vision, so they can become a destination now
         nodesToExplore.Add(startCoords, new PathNode(null, startCoords, 0));
 		
 		while (nodesToExplore.Count > 0)
 		{
-			PathNode currentNode = (PathNode)nodesToExplore[0];
+			PathNode currentNode = null;
+			int lowestCost = int.MaxValue;
+			// find tile to explore with lowest cost:
+			foreach(PathNode node in nodesToExplore.Values)
+			{
+				if (node.Cost < lowestCost)
+				{
+					currentNode = node; // tile with lower cost than currently selected one : pick it instead
+					lowestCost = node.Cost;
+				}
+			}
+
+			if(currentNode == null)
+			{
+				Debug.LogWarning("NO CURRENT TILE");
+				return false;
+			}
+			
 			if(currentNode.Coords == endCoords)
-			{// found path
+			{// found final node, this is the quickest route
 				finalNode = currentNode; // this node is the destination node, do not search for paths from it
 				nodesToExplore.Remove(currentNode.Coords);
 				resolvedNodes.Add(currentNode.Coords, currentNode);
-				continue; // there might be a quicker path, so continue exploring nodes
+				break;
 			}
 
 			foreach (Vector2Int targetCoord in GetNeighbors(currentNode.Coords))
@@ -63,7 +81,10 @@ public class Pathfinding : MonoBehaviour
 				{// check if found cheaper path
 					PathNode neighbor = (PathNode)resolvedNodes[targetCoord];
 					if (neighbor.Cost > newCost && newCost > 0)
+					{
 						nodesToExplore.Add(targetCoord, new PathNode(currentNode, targetCoord, newCost));
+						resolvedNodes.Remove(targetCoord);
+					}
 					continue;
 				}// not evaluated previously: add to be explored
 				nodesToExplore.Add(targetCoord, new PathNode(currentNode, targetCoord, newCost));
@@ -75,7 +96,16 @@ public class Pathfinding : MonoBehaviour
 		// all nodes explored, find path
 		if(finalNode == null)
 		{// did not find final node, decide where to go for a temporary step
-
+			Debug.LogWarning("NO PATH");
+		}
+		HashSet<PathNode> nodes = new HashSet<PathNode>();
+		foreach(PathNode pathNode in resolvedNodes.Values)
+		{
+			nodes.Add(pathNode);
+		}
+		foreach (PathNode pathNode in nodesToExplore.Values)
+		{
+			nodes.Add(pathNode);
 		}
 		path = ConstructPath(finalNode);
 		if (path.Count < 1)
@@ -102,7 +132,9 @@ public class Pathfinding : MonoBehaviour
 		TilemapManager.TileState targetState = TilemapManager.GetTileState(targetCoords.x, targetCoords.y);
 		if(targetState == TilemapManager.TileState.free)
 		{
-			return cost + EMPTY_TILE_COST;		
+			int targetCost = cost + EMPTY_TILE_COST;
+			if (targetCost >= 0)// no overflow happened
+				return targetCost;
 		}// tile occupied or out of bounds
 		return OCCUPIED_TILE_COST;
 

@@ -20,12 +20,10 @@ public class TTLList<T> where T : UnityEngine.Object
 
     public void AddToList(T obj)
     {
-        Debug.Log(obj);
         if (dict.ContainsKey(obj))
             dict[obj] = basicTTL;
         else
             dict.Add(obj, basicTTL);
-        Debug.Log("Added/Changed object in dictionary", obj);
         UpdateViewList();
     }
 
@@ -61,6 +59,11 @@ public class TTLList<T> where T : UnityEngine.Object
     public List<T> GetTList()
     {
         return new List<T>(dict.Keys);
+    }
+
+    public int GetCount()
+    {
+        return dict.Count;
     }
 
     // ---------- private methods

@@ -76,9 +76,9 @@ MonoBehaviour:
   tileCoord: {x: 0, y: 0}
   WORLD_SPACE_OFFSET: {x: 0.5, y: 0.5, z: 0.5}
   MySquad: {fileID: 0}
-  rangeAttack: 3
-  rangeView: 10
-  damageAttack: 25
+  rangeAttack: 2
+  rangeView: 3
+  damageAttack: 10
   speedAttack: 2
   lastAttackTick: -1
   target: {fileID: 0}
