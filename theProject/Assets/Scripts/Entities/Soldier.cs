@@ -6,7 +6,15 @@ using UnityEngine.Events;
 
 [RequireComponent(typeof(Communication))]
 public class Soldier : Entity
-{
+{ 
+    public void DebugLogIfAlly(string message)
+	{
+        if(myTeam == Team.Ally)
+		{
+            Debug.Log(message);
+		}
+	}
+
     private Queue<Action> actions = new Queue<Action>();
     private Queue<Action> interrupts = new Queue<Action>();
     public Squad MySquad = null;
@@ -34,7 +42,7 @@ public class Soldier : Entity
 
             Vector2Int movementStepDestination = path[0];
 
-
+            soldier.DebugLogIfAlly($"[T:{tickEventArgs.tickNumber}] Soldier: Trying to move from {soldier.tileCoord} to {soldier.movementDestination} via {movementStepDestination}");
             if (!TilemapManager.MoveSoldierS(soldier.tileCoord.x, soldier.tileCoord.y, movementStepDestination.x, movementStepDestination.y))
                 return;
 
@@ -47,8 +55,12 @@ public class Soldier : Entity
         public override void Execute(Soldier soldier, TickSystem.OnTickEventArgs tickEventArgs)
         {
             //Debug.LogWarning($"(tick: {tickEventArgs.tickNumber}) Looking for enemy in range");
-            if(soldier.TryAttackEnemy())
+            soldier.DebugLogIfAlly($"[T:{tickEventArgs.tickNumber}] Soldier: Looking for enemies in range");
+            if (soldier.TryAttackEnemy())
+            {
                 soldier.lastAttackTick = tickEventArgs.tickNumber;
+                soldier.DebugLogIfAlly($"[T:{tickEventArgs.tickNumber}] Soldier: Attacked enemy");
+            }
         }
     }
 	#endregion

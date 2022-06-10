@@ -8,6 +8,7 @@ public class SquadManager : MonoBehaviour
 	[SerializeField] GameObject squadPrefab;
 	Squad playerSquad;
 	Squad enemySquad;
+	[SerializeField] bool allowAllySpawning = true;
 
 	Vector2Int playerSpawnCoords = Vector2Int.up; //TEMP SPAWN BY BASE
 	private void Awake()
@@ -17,7 +18,8 @@ public class SquadManager : MonoBehaviour
 		playerSquad.transform.SetParent(transform);
 		playerSquad.SetOwnTeam(Entity.Team.Ally);
 		playerSquad.gameObject.AddComponent<SoldierSpawning>();
-		playerSquad.GetComponent<SoldierSpawning>().SetSpawnCoords(playerSpawnCoords);//DEPENDENCY_INJECTION
+		if(allowAllySpawning)
+			playerSquad.GetComponent<SoldierSpawning>().SetSpawnCoords(playerSpawnCoords);//DEPENDENCY_INJECTION
 		FindObjectOfType<PlayerClickSystem>().SetPlayerSquad(playerSquad);//DEPENDENCY_INJECTION
 
 		enemySquad = Instantiate(squadPrefab).GetComponent<Squad>();

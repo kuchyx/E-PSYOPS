@@ -58,18 +58,18 @@ public class PlayerClickSystem : MonoBehaviour
             {
                 Vector3 hitWorldPosition = tileCoord;
 
-                Debug.Log($"Hit at {hitWorldPosition}");
+                //Debug.Log($"Hit at {hitWorldPosition}");
                 TilemapManager.Tile selectedTile;
                 int x, y;
                 TilemapManager.TileState tileState = tilemapManager.GetTileFromWorldCoords(hitWorldPosition, out selectedTile, out x, out y);
                 
                 if(tileState == TilemapManager.TileState.outOfBounds)
 				{
-                    Debug.Log($"No tile was hit (hit \"coords\" {x},{y})");
+                    //Debug.Log($"No tile was hit (hit \"coords\" {x},{y})");
                     return; // for now do nothing if a tile was not selected
 				}
                 // a tile was hit
-                Debug.Log($"Tile {x},{y} was selected - DO MOVEMENT ORDER");
+                Debug.Log($"Tile {x},{y} was selected - ORDER MOVEMENT");
                 playerSquad.EnqueueOrder(new Squad.MovementOrder(new Vector2Int(x,y)));
 
 
