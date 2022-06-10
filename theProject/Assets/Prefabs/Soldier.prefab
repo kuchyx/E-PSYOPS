@@ -89,7 +89,7 @@ MonoBehaviour:
   tileCoord: {x: 0, y: 0}
   WORLD_SPACE_OFFSET: {x: 0.5, y: 0.5, z: 0.5}
   rangeAttack: 3
-  rangeView: 1
+  rangeView: 10
   damageAttack: 25
   speedAttack: 2
   lastAttackTick: -1

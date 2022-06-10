@@ -44,7 +44,16 @@ public class Pathfinding : MonoBehaviour
 			foreach(PathNode node in nodesToExplore.Values)
 			{
 				if (node.Cost < lowestCost)
+				{
 					currentNode = node; // tile with lower cost than currently selected one : pick it instead
+					lowestCost = node.Cost;
+				}
+			}
+
+			if(currentNode == null)
+			{
+				Debug.LogWarning("NO CURRENT TILE");
+				return false;
 			}
 			
 			if(currentNode.Coords == endCoords)
@@ -87,7 +96,16 @@ public class Pathfinding : MonoBehaviour
 		// all nodes explored, find path
 		if(finalNode == null)
 		{// did not find final node, decide where to go for a temporary step
-
+			Debug.LogWarning("NO PATH");
+		}
+		HashSet<PathNode> nodes = new HashSet<PathNode>();
+		foreach(PathNode pathNode in resolvedNodes.Values)
+		{
+			nodes.Add(pathNode);
+		}
+		foreach (PathNode pathNode in nodesToExplore.Values)
+		{
+			nodes.Add(pathNode);
 		}
 		path = ConstructPath(finalNode);
 		if (path.Count < 1)
