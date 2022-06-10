@@ -59,11 +59,11 @@ public class Soldier : Entity
         public override void Execute(Soldier soldier, TickSystem.OnTickEventArgs tickEventArgs)
         {
             //Debug.LogWarning($"(tick: {tickEventArgs.tickNumber}) Looking for enemy in range");
-            soldier.DebugLogIfAlly($"[T:{tickEventArgs.tickNumber}] [Ally] Looking for enemies in range");
+           // soldier.DebugLogIfAlly($"[T:{tickEventArgs.tickNumber}] [Ally] Looking for enemies in range");
             if (soldier.TryAttackEnemy())
             {
                 soldier.lastAttackTick = tickEventArgs.tickNumber;
-                soldier.DebugLogIfAlly($"[T:{tickEventArgs.tickNumber}] [Ally]: Attacked enemy");
+            //    soldier.DebugLogIfAlly($"[T:{tickEventArgs.tickNumber}] [Ally]: Attacked enemy");
             }
         }
     }
