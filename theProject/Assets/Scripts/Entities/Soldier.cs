@@ -27,7 +27,11 @@ public class Soldier : Entity
             }
 
             List<Vector2Int> path;
-            if(!Pathfinding.Instance.FindPath(soldier.tileCoord, soldier.movementDestination, out path))
+            if(!Pathfinding.Instance
+                .FindPath(
+                soldier.tileCoord, 
+                soldier.movementDestination, 
+                out path))
 			{
                 return; // cannot find path: do nothing (for now)
 			}
