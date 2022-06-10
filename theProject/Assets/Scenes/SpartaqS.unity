@@ -157,9 +157,10 @@ MonoBehaviour:
   allyBaseCoord: {x: 0, y: 0}
   soldierStartingPositions:
   - {x: 2, y: 1}
+  - {x: 2, y: 2}
   enemyBaseCoord: {x: 9, y: 9}
   enemyStartingPositions:
-  - {x: 8, y: 7}
+  - {x: 8, y: 9}
   tilemap: {fileID: 1853262998}
   soldierPrefab: {fileID: 403095692180922766, guid: a87b1aa46b0ed3e0fba621e11dd4f1e2,
     type: 3}
@@ -786,6 +787,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1773236753}
     m_Modifications:
+    - target: {fileID: 1831389151964757020, guid: 3f72f88ef966ae34288fa03b7fff7884,
+        type: 3}
+      propertyPath: allowAllySpawning
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1831389151964757021, guid: 3f72f88ef966ae34288fa03b7fff7884,
         type: 3}
       propertyPath: m_Name

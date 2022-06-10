@@ -77,8 +77,8 @@ MonoBehaviour:
   WORLD_SPACE_OFFSET: {x: 0.5, y: 0.5, z: 0.5}
   MySquad: {fileID: 0}
   rangeAttack: 3
-  rangeView: 1
-  damageAttack: 1
+  rangeView: 10
+  damageAttack: 25
   speedAttack: 2
   lastAttackTick: -1
   target: {fileID: 0}

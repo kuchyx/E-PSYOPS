@@ -26,7 +26,7 @@ public class Squad : MonoBehaviour
 		public readonly Vector2Int targetCoords;
 		public override void Execute(Squad squad)
 		{// here we would set soldier's target position for example
-			Debug.Log(squad);
+			//Debug.Log(squad);
 			Dictionary<Entity, Vector2Int> targetCoordsDictionary = squad.
 				GetFormation().
 				CalculatePositions(
@@ -35,7 +35,7 @@ public class Squad : MonoBehaviour
 			{
 				Vector2Int targetPositionForSoldier = targetCoordsDictionary[soldier];
 				soldier.HandleMovementOrder(targetPositionForSoldier);
-				Debug.Log($"Soldier {soldier.name} received movement order towards coordinates {targetPositionForSoldier.x},{targetPositionForSoldier.y}");
+			//	Debug.Log($"Soldier {soldier.name} received movement order towards coordinates {targetPositionForSoldier.x},{targetPositionForSoldier.y}");
 			}
 		}
 	}
@@ -92,7 +92,7 @@ public class Squad : MonoBehaviour
 			return; // for now nothing to do here
 
 		Order currentOrder = orders.Dequeue();
-		Debug.Log($"Passing order {currentOrder.ToString()} on tick #{eventArgs.tickNumber}");
+		//Debug.Log($"[{eventArgs.tickNumber}] [Squad] Passing order {currentOrder.GetType().ToString()} on tick #{eventArgs.tickNumber}");
 		currentOrder.Execute(this);
 	}
 

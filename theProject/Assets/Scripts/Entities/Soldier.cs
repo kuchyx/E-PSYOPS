@@ -42,7 +42,7 @@ public class Soldier : Entity
 
             Vector2Int movementStepDestination = path[0];
 
-            soldier.DebugLogIfAlly($"[T:{tickEventArgs.tickNumber}] Soldier: Trying to move from {soldier.tileCoord} to {soldier.movementDestination} via {movementStepDestination}");
+            //soldier.DebugLogIfAlly($"[T:{tickEventArgs.tickNumber}] [Ally]: Trying to move from {soldier.tileCoord} to {soldier.movementDestination} via {movementStepDestination}");
             if (!TilemapManager.MoveSoldierS(soldier.tileCoord.x, soldier.tileCoord.y, movementStepDestination.x, movementStepDestination.y))
                 return;
 
@@ -55,11 +55,11 @@ public class Soldier : Entity
         public override void Execute(Soldier soldier, TickSystem.OnTickEventArgs tickEventArgs)
         {
             //Debug.LogWarning($"(tick: {tickEventArgs.tickNumber}) Looking for enemy in range");
-            soldier.DebugLogIfAlly($"[T:{tickEventArgs.tickNumber}] Soldier: Looking for enemies in range");
+            soldier.DebugLogIfAlly($"[T:{tickEventArgs.tickNumber}] [Ally] Looking for enemies in range");
             if (soldier.TryAttackEnemy())
             {
                 soldier.lastAttackTick = tickEventArgs.tickNumber;
-                soldier.DebugLogIfAlly($"[T:{tickEventArgs.tickNumber}] Soldier: Attacked enemy");
+                soldier.DebugLogIfAlly($"[T:{tickEventArgs.tickNumber}] [Ally]: Attacked enemy");
             }
         }
     }

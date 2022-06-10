@@ -84,7 +84,7 @@ public class Entity : MonoBehaviour
             Die();
 
         UpdateHPDisplay();
-        Debug.Log($"[{myTeam.ToString()}] I took damage, my HP is now: " + healthPoints + " noooo!!!!", gameObject);
+       // Debug.Log($"[{myTeam.ToString()}] I took damage, my HP is now: " + healthPoints + " noooo!!!!", gameObject);
     }
 
     protected virtual void HandleTick(TickSystem.OnTickEventArgs tickEventArgs)
