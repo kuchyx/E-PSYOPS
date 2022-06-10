@@ -114,7 +114,9 @@ public class Pathfinding : MonoBehaviour
 		TilemapManager.TileState targetState = TilemapManager.ins.GetTileState(targetCoords.x, targetCoords.y);
 		if(targetState == TilemapManager.TileState.free)
 		{
-			return cost + EMPTY_TILE_COST;		
+			int targetCost = cost + EMPTY_TILE_COST;
+			if (targetCost >= 0)// no overflow happened
+				return targetCost;
 		}// tile occupied or out of bounds
 		return OCCUPIED_TILE_COST;
 
